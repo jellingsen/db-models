@@ -9,4 +9,4 @@
  * License: GPLv2
  */
 
-define( 'MODELS_PATH', plugin_dir_path( __FILE__ ) );
+define( 'MODELS_PATH', plugin_dir_path( __FILE__ ).'/models/' );

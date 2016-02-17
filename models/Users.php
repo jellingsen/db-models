@@ -6,7 +6,8 @@
  * Date: 16-Feb-16
  * Time: 18:59
  */
-require_once('BaseModel.php');
+require('/../files' . DIRECTORY_SEPARATOR. 'BaseModel.php');
+
 class Users extends BaseModel
 {
 	public function __construct()
@@ -34,7 +35,7 @@ class Users extends BaseModel
 		return [
 			'ID', 'user_login', 'user_pass', 'user_nickname',
 			'user_email', 'user_url', 'user_registered',
-			'user_activation_key', 'user_status', 'display_name', 'twat'
+			'user_activation_key', 'user_status', 'display_name'
 		];
 	}
 
