@@ -5,7 +5,7 @@
  * Author: J&oslash;rgen Ellingsen
  * Description: Database Model Implementation
  * Author URI: https://github.com/jellingsen
- * Version: 0.0.1a
+ * Version: 0.0.2a
  * License: GPLv2
  */
 

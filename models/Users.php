@@ -23,24 +23,9 @@ class Users extends BaseModel
 		return 'users';
 	}
 
-	/**
-	 * List all the fields in the table to improve performance.
-	 * BaseModel will ask the database for them if not provided.
-	 * return ['attribute1', 'attribute2', ..., 'attributeN']
-	 *
-	 * @return array
-	 */
-	static function fields()
-	{
-		return [
-			'ID', 'user_login', 'user_pass', 'user_nickname',
-			'user_email', 'user_url', 'user_registered',
-			'user_activation_key', 'user_status', 'display_name'
-		];
-	}
-
 	public function spit()
 	{
 		return $this->getFields();
 	}
+
 }
