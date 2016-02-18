@@ -8,7 +8,7 @@
  */
 require('/../files' . DIRECTORY_SEPARATOR. 'BaseModel.php');
 
-class Users extends BaseModel
+class Options extends BaseModel
 {
 	public function __construct()
 	{
@@ -20,12 +20,6 @@ class Users extends BaseModel
 	 */
 	static function tableName()
 	{
-		return 'users';
+		return 'options';
 	}
-
-	public function spit()
-	{
-		return $this->getFields();
-	}
-
 }
