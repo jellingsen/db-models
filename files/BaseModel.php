@@ -64,9 +64,10 @@ class BaseModel
 	 *
 	 * @return $this
 	 */
-	public function find()
+	public static function find()
 	{
-		return new QueryBuilder($this->getTable(), 'SELECT');
+		$instance = self::createInstance();
+		return new QueryBuilder($instance->getTable(), 'SELECT');
 	}
 
 	/**
@@ -76,12 +77,18 @@ class BaseModel
 	 * @param $select
 	 * @return QueryBuilder
 	 */
-	public function findByPk($pk, $select = null)
+	public static function findByPk($pk, $select = null)
 	{
-		if($this->primaryKey == null) return 'nopk';
-		$query = new QueryBuilder($this->getTable(), 'SELECT');
+		$instance = self::createInstance();
+		if($instance->primaryKey == null) return 'nopk';
+		$query = new QueryBuilder($instance->getTable(), 'SELECT');
 		if($select != null) $query->select($select);
-		$query->where([$this->primaryKey => $pk]);
+		$query->where([$instance->primaryKey => $pk]);
 		return $query->one();
+	}
+	private function createInstance()
+	{
+		$class = get_called_class();
+		return new $class;
 	}
 }
