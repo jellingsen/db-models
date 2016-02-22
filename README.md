@@ -14,7 +14,7 @@ A Yii2-like model handler for database connections in WordPress
 | `$model->find()->all()` | Returns several rows |
 
 Example:
-
+```php
 <?php
 
 /**
@@ -41,3 +41,4 @@ foreach($all_opts as $opt)
 }
 
 ?>
+```
