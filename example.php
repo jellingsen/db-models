@@ -9,7 +9,7 @@
 require(MODELS_PATH . 'Options.php');
 
 // Find Example (returns array of objects)
-$all_opts = Options::find()->limit(3)->all();
+$all_opts = Options::find()->limit(3)->cache('cacheIdentifier')->all();
 
 // FindByPk Example (returns Object)
 $opt1 = Options::findByPk(1);

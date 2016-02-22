@@ -8,22 +8,11 @@
  */
 class QueryResult
 {
-	public $asd = 'asd';
 	public function __construct($attributes)
 	{
 		foreach($attributes as $name => $value)
 		{
-			$this->bind($name, $value);
+			$this->$name = $value;
 		}
-	}
-	
-	/**
-	 * Creates a class variable
-	 *
-	 * @param $name
-	 * @param $value
-	 */
-	private function bind($name, $value) {
-		$this->$name = $value;
 	}
 }

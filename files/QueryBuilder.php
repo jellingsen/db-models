@@ -8,6 +8,8 @@ class QueryBuilder
 	protected $select = '*';
 	protected $limit;
 	protected $wpdb;
+	protected $cache;
+	protected $cacheTime = 12 * HOUR_IN_SECONDS;
 
 	public function __construct($table, $method)
 	{
@@ -72,8 +74,38 @@ class QueryBuilder
 		return $this;
 	}
 
+	public function cache($identifier)
+	{
+		$this->cache = $identifier;
+		return $this;
+	}
+
 
 	private function execute()
+	{
+		if(isset($this->cache))
+		{
+			if ( false === ( $value = get_transient( $this->cache ) ) ) {
+				if(defined('DB_MODELS_DEBUG')) $start = microtime(true);
+				$results = $this->wpdb->get_results($this->getQuery());
+				set_transient($this->cache, $results, $this->cacheTime );
+				if(defined('DB_MODELS_DEBUG')) $this->add_debug($this->getQuery(), microtime(true) - $start, false);
+				return $results;
+			}
+			else {
+				if(defined('DB_MODELS_DEBUG')) $this->add_debug($this->getQuery(), 0, true);
+				return get_transient($this->cache);
+			}
+		}
+		else {
+			if(defined('DB_MODELS_DEBUG')) $start = microtime(true);
+			$result = $this->wpdb->get_results($this->getQuery());
+			if(defined('DB_MODELS_DEBUG')) $this->add_debug($this->getQuery(), microtime(true) - $start, false);
+			return $result;
+		}
+	}
+
+	private function getQuery()
 	{
 		$query = $this->action.' '.$this->select.' FROM ' . $this->table . ' ';
 		if($this->where != null) {
@@ -85,8 +117,9 @@ class QueryBuilder
 			$query = substr($query, 0, -4);
 		}
 		if($this->limit != 0) $query .= 'LIMIT '.$this->limit;
-		return $this->wpdb->get_results($query);
+		return $query;
 	}
+
 	public function all()
 	{
 		$results = $this->execute();
@@ -102,5 +135,10 @@ class QueryBuilder
 	{
 		$this->limit = '1';
 		return new QueryResult($this->execute()[0]);
+	}
+
+	private function add_debug($query, $time, $cached)
+	{
+		$GLOBALS['DB_MODELS_DEBUG'][] = [$query, $time, $cached];
 	}
 }
