@@ -12,7 +12,7 @@ require(MODELS_PATH . 'Options.php');
 $all_opts = Options::find()->cache('cacheIdentifier')->all();
 
 // Find Example with select
-$three_opts = Options::find()->limit(3)->orderBy('option_id DESC')->all();
+$three_opts = Options::find()->limit(3)->select(['option_id', 'option_name'])->orderBy('option_id DESC')->all();
 
 // FindByPk Example (returns Object)
 $opt1 = Options::findByPk(1);

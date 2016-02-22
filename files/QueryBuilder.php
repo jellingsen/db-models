@@ -59,7 +59,7 @@ class QueryBuilder
 				$select .= $param.', ';
 			}
 		else $select = $params;
-		$this->select = $select;
+		$this->select = rtrim($select, ', ');
 		return $this;
 	}
 
