@@ -83,7 +83,7 @@ class BaseModel
 	{
 		$instance = self::createInstance();
 		$instance->getFields();
-		if($instance->primaryKey == null) return 'nopk';
+		if($instance->primaryKey == null) return null;
 		$query = new QueryBuilder($instance->getTable(), 'SELECT');
 		if($select != null) $query->select($select);
 		$query->where([$instance->primaryKey => $pk]);

@@ -10,6 +10,7 @@ class QueryBuilder
 	protected $wpdb;
 	protected $cache;
 	protected $cacheTime = 12 * HOUR_IN_SECONDS;
+	protected $order;
 
 	public function __construct($table, $method)
 	{
@@ -74,6 +75,13 @@ class QueryBuilder
 		return $this;
 	}
 
+
+	public function orderBy($string)
+	{
+		$this->order = $string;
+		return $this;
+	}
+
 	public function cache($identifier)
 	{
 		$this->cache = $identifier;
@@ -116,7 +124,9 @@ class QueryBuilder
 			}
 			$query = substr($query, 0, -4);
 		}
-		if($this->limit != 0) $query .= 'LIMIT '.$this->limit;
+		if(isset($this->order)) $query .= ' ORDER BY '.$this->order;
+		if($this->limit != 0) $query .= ' LIMIT '.$this->limit;
+
 		return $query;
 	}
 

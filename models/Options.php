@@ -13,7 +13,7 @@ class Options extends BaseModel
 		parent::__construct();
 
 		// Optional performance enhancing function $this->setFields(primary_key, [attributes])
-		$this->setFields('options_id', ['option_name','option_value','autoload']);
+		$this->setFields('option_id', ['option_name','option_value','autoload']);
 	}
 
 	/**
