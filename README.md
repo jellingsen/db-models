@@ -7,7 +7,7 @@ A Yii2-like model handler for database connections in WordPress
 | --- | --- |
 | `$model = new TableName;` | Initiates a model instance |
 | `$model->find()` | Initiator for SELECT queries |
-| `$model->find()->where(['field','value'])` | Adds a where clause to the query |
+| `$model->find()->where(['field' => 'value', 'field2' => 'value2'])` | Adds a where clause to the query |
 | `$model->find()->cache('unique_identifier')` | Caches the query with WP transient |
 | `$model->find()->limit(1)` | Adds a limit to the query |
 | `$model->find()->one()` | Returns one row |
